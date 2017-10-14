@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
@@ -13,7 +13,7 @@ from models import Result
 
 @app.route('/')
 def hello():
-    return "Hello World!"
+    return render_template('index.html')
 
 
 @app.route('/<name>')
