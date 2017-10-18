@@ -14,8 +14,7 @@ from forms import CountryForm
 
 @app.route('/')
 def hello():
-    user = Country.query.filter_by(name='Colombia').first_or_404()
-    return render_template('index.html',user=user)
+    return render_template('index.html')
 
 @app.route('/admin',methods=('GET', 'POST'))
 def admin():
