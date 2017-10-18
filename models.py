@@ -26,7 +26,7 @@ class Country(db.Model):
     name = db.Column(db.String())
 
     def __init__(self, name):
-        self.url = name
+        self.name = name
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -39,7 +39,7 @@ class Department(db.Model):
     country_id = db.Column(db.Integer(), ForeignKey(Country.id))
 
     def __init__(self, name):
-        self.url = name
+        self.name = name
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -53,7 +53,7 @@ class City(db.Model):
     department_id = db.Column(db.Integer(), ForeignKey(Department.id))
 
     def __init__(self, name):
-        self.url = name
+        self.name = name
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
