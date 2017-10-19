@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask import request
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
@@ -17,26 +17,28 @@ def hello():
     return render_template('index.html')
 
 @app.route('/admin',methods=('GET', 'POST'))
-def admin():
+def new_country():
     form = CountryForm(request.form)
-    user = Country.query.all()
+    countries = Country.query.all()
 
     if request.method == 'POST' and form.validate():
         form = CountryForm(request.form)
-        user = Country.query.all()
-
         if request.method == 'POST' and form.validate():
             country = Country(form.name.data)
             db.session.add(country)
             db.session.commit()
+            return redirect(url_for('new_country'))
 
-    return render_template('admin/admin.html',user=user,form=form)
+    return render_template('admin/admin.html',countries=countries,form=form)
 
+@app.route('/country/<int:id_country>',methods=['GET','POST','DELETE'])
+def delete_country(id_country):
+    if request.method == 'POST' or request.method == 'DELETE':
+        country = Country.query.filter_by(id=id_country).first_or_404()
+        db.session.delete(country)
+        db.session.commit()
 
-@app.route('/<name>')
-def hello_name(name):
-    return "Hello {}!".format(name)
-
+    return redirect(url_for('new_country'))
 
 if __name__ == '__main__':
     app.run()

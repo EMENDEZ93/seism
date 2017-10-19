@@ -94,32 +94,6 @@
 </style>
 
       <section>
-        <table class="table_footable">
-              <thead>
-                  <tr>
-                      <th>id</th>
-                      <th>Pais</th>
-                      <th>Acciones</th>
-                  </tr>
-              </thead>
-              <tbody id="cities_list">
-                  {% for country in countries %}
-                      <tr>
-                          <td>
-                              {{country.id}}
-                          </td>
-                          <td>
-                              {{country.name}}
-                          </td>
-                          <td>
-                              <form action="{{ url_for('delete_country',id_country=country.id) }}" method="post" class=delete-movie>
-                                  <a type=submit class="btn btn-danger">Eliminar</a>
-                              </form>
-                          </td>
-                      </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
 
           <form action="" method="post" name="login">
               {{ form.csrf_token }}
@@ -130,7 +104,7 @@
     </section>
 
 
-
+                
 
 
 <footer>
