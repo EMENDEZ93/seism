@@ -1,0 +1,76 @@
+{% extends "admin/admin.html" %}
+{% block main %}
+<style>
+
+.table_footable{
+    width: 95%;
+    text-align: end;
+}
+
+.form-group{
+    display: -webkit-inline-box;
+    margin: 100px;
+}
+
+.panel-primary {
+    border-color: #337ab7;
+    width: 60%;
+}
+
+
+.panel-body{
+    text-align: -webkit-center;
+}
+
+tbody, th, #_body{
+    text-align: -webkit-center;
+}
+
+
+#name, #_submit{
+    margin: 5px;
+}
+
+</style>
+
+      <br>
+      <br>
+      <br>
+      <br>
+     <div class="panel panel-primary" style="background-image: url('/static/images/seism.jpg'); min-height: 489px; max-height: 489px;">
+        <div class="panel-body">
+
+            {% block country_form %}{% endblock %}
+
+            <div id="country_table"  {% if countries|length == 0 %} style="display: none;"{% endif %}>
+              <table class="table_footable">
+                    <thead style="background-color: powderblue">
+                        <tr style="text-align: -webkit-center;">
+                            <th>Id</th>
+                            <th>Pais</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for country in countries %}
+                            <tr>
+                                <td>
+                                    {{country.id}}
+                                </td>
+                                <td>
+                                    {{country.name}}
+                                </td>
+                                <td style="display:flex;">
+                                    <a id=""  href="{{ url_for('edit_country',id_country=country.id) }}" class="btn btn-default btn-block">Editar</a>
+                                    <form action="{{ url_for('delete_country',id_country=country.id) }}" method="post" style="width: 100%;">
+                                        <button type=submit class="btn btn-info btn-block" >Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+              </table>
+            </div>
+        </div>
+     </div>
+{% endblock %}

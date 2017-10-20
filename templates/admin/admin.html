@@ -51,7 +51,7 @@
                 </div>
 
 
-    <header id="HOME" style="background-position: 50% -125px;">
+    <header id="HOME">
 	        <div class="section_overlay">
 	            <nav class="navbar navbar-default navbar-fixed-top">
 	              <div class="container">
@@ -63,7 +63,7 @@
 	                    <span class="icon-bar"></span>
 	                    <span class="icon-bar"></span>
 	                  </button>
-	                  <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='images/logo.png') }}" alt=""></a>
+	                  <a class="navbar-brand" href="#"><img src="{{ url_for('static', filename='images/seism.png') }}" style="margin: -90px;margin-left: initial;" alt=""></a>
 	                </div>
 
 	                <!-- Collect the nav links, forms, and other content for toggling -->
@@ -82,64 +82,15 @@
 	        </div>
     </header>
 
+   {% block main %}{% endblock %}
 
-
-<style>
-
-.table_footable{
-    margin: 100px ;
-    width: 50%;
-}
-
-</style>
-
-      <section>
-        <table class="table_footable">
-              <thead>
-                  <tr>
-                      <th>id</th>
-                      <th>Pais</th>
-                      <th>Acciones</th>
-                  </tr>
-              </thead>
-              <tbody id="cities_list">
-                  {% for country in countries %}
-                      <tr>
-                          <td>
-                              {{country.id}}
-                          </td>
-                          <td>
-                              {{country.name}}
-                          </td>
-                          <td>
-                              <form action="{{ url_for('delete_country',id_country=country.id) }}" method="post" class=delete-movie>
-                                  <a type=submit class="btn btn-danger">Eliminar</a>
-                              </form>
-                          </td>
-                      </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-
-          <form action="" method="post" name="login">
-              {{ form.csrf_token }}
-              {{ form.name }}
-              <p><input type="submit" value="Sign In"></p>
-          </form>
-
-    </section>
-
-
-
-
-
-<footer>
+   <footer>
     <div class="container">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="footer_logo   wow fadeInUp animated">
-                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+                        <img src="{{ url_for('static', filename='images/seism.png') }}" style="margin: -90px;margin-left: -106px;"  alt="">
                     </div>
                 </div>
             </div>
@@ -164,8 +115,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="copyright_text   wow fadeInUp animated">
-                        <p>&copy; brandy 2015.All Right Reserved By <a href="http://www.themeforest.net/user/thecodecafe"target="_blank">Code Cafe Team</a></p>
-                        <p>Made with love for creative people.</p>
+                        <p>&copy; SEISMIC-EM 2017<a href="http://www.themeforest.net/user/thecodecafe"target="_blank"></a></p>
                     </div>
                 </div>
             </div>

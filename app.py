@@ -1,3 +1,5 @@
+from wtforms import Form
+from wtforms.ext.appengine.db import model_form
 from flask import Flask, render_template, redirect, url_for
 from flask import request
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -29,7 +31,22 @@ def new_country():
             db.session.commit()
             return redirect(url_for('new_country'))
 
-    return render_template('admin/admin.html',countries=countries,form=form)
+    return render_template('admin/country/form.html', countries=countries, form=form)
+
+
+@app.route("/edit/country/<id_country>",methods=['GET','POST'])
+def edit_country(id_country):
+    country = Country.query.get_or_404(id_country)
+    form = CountryForm(request.form)
+
+    if form.validate():
+        country.name = form.name.data
+        db.session.commit()
+        return redirect(url_for('new_country'))
+
+    form.name.data = country.name
+    return render_template('admin/country/form.html',form=form)
+
 
 @app.route('/country/<int:id_country>',methods=['GET','POST','DELETE'])
 def delete_country(id_country):
@@ -39,6 +56,7 @@ def delete_country(id_country):
         db.session.commit()
 
     return redirect(url_for('new_country'))
+
 
 if __name__ == '__main__':
     app.run()
