@@ -1,0 +1,20 @@
+{% extends "admin/department/list.html" %}
+{% block department_form %}
+
+<style>
+#name, #_submit{
+    margin: 5px;
+}
+</style>
+
+   <div id="form_" style="text-align: center;">
+       <form action="" method="post" name="login">
+           {{ form.csrf_token }}
+           <div style="display: -webkit-inline-box;">
+               {{ form.name }}
+               <p><input id="_submit" type="submit" value="Guardar" class="btn btn-danger btn-block"></p>
+           </div>
+       </form>
+   </div>
+
+{% endblock %}

@@ -38,8 +38,9 @@ class Department(db.Model):
     name = db.Column(db.String())
     country_id = db.Column(db.Integer(), ForeignKey(Country.id))
 
-    def __init__(self, name):
+    def __init__(self, name, country_id):
         self.name = name
+        self.country_id = country_id
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
