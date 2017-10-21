@@ -12,3 +12,6 @@ class CountryForm(Form):
 
 class DepartmentForm(Form):
     name = StringField('Name', [validators.Length(min=4, max=25)])
+
+class CityForm(Form):
+    name = StringField('Name', [validators.Length(min=4, max=25)])

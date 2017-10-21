@@ -53,8 +53,9 @@ class City(db.Model):
     name = db.Column(db.String())
     department_id = db.Column(db.Integer(), ForeignKey(Department.id))
 
-    def __init__(self, name):
+    def __init__(self, name, department_id):
         self.name = name
+        self.department_id = department_id
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
