@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+from decimal import *
+from datetime import datetime
 from wtforms import Form
 from wtforms.ext.appengine.db import model_form
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, json, jsonify
 from flask import request
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
@@ -11,8 +13,8 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-from models import Result, Country, Department, City
-from forms import CountryForm, DepartmentForm, CityForm
+from models import Country, Department, City, Seism
+from forms import CountryForm, DepartmentForm, CityForm, SeismicForm
 
 
 @app.route('/')
@@ -1239,6 +1241,7 @@ def delete_department(id_department):
 
     return redirect(url_for('new_department',name_country=country.name))
 
+
 @app.route('/country/<name_country>/department/<name_department>',methods=['GET', 'POST'])
 def new_city(name_country,name_department):
     form = CityForm(request.form)
@@ -1283,6 +1286,47 @@ def delete_city(id_city):
         db.session.commit()
 
     return redirect(url_for('new_city', name_country=country.name, name_department=department.name))
+
+
+@app.route('/seismic/<name_country>',methods=['GET', 'POST'])
+def new_seismic(name_country):
+    form = SeismicForm(request.form)
+    country = Country.query.filter_by(name=name_country).first()
+    department = Department.query.filter_by(country_id =country.id)
+    form.department.choices = [(status.id, status.name) for status in department]
+
+        #country = Country.query.filter_by(name=name_country).first_or_404()
+        #department = Department.query.filter_by(name=name_department).first_or_404()
+        #cities = City.query.filter_by(department_id=department.id).order_by(City.name).all()
+
+    if request.method == 'POST':
+        if request.form['seismic_time'] != '' and request.form['seismic_date'] != '' and request.form['richter_scale'] != '' and request.form['city_id'] != '' and request.form['department'] != '':
+            city = City.query.filter_by(id=request.form['city_id']).first_or_404()
+            if city:
+                datetime_ = request.form['seismic_date']
+                time_ = request.form['seismic_time']
+                date_ = float(request.form['richter_scale'])
+                seism = Seism(time_, datetime_, date_, city.id)
+                db.session.add(seism)
+                db.session.commit()
+
+    return render_template('admin/seismic/form.html', form=form)
+
+@app.route('/get_departments', methods=['POST'])
+def get_departments():
+    user =  request.form['department']
+    department = City.query.filter_by(department_id=int(user)).all()
+
+    city_id={}
+    city_name={}
+    for department_ in department:
+        city_id[str(department_.id)] = department_.id
+        city_name[str(department_.id)] = department_.name
+
+    return jsonify({'city_id': city_id,'city_name': city_name});
+
+
+
 
 
 if __name__ == '__main__':

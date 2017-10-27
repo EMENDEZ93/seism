@@ -1,0 +1,50 @@
+{% extends "admin/admin.html" %}
+{% block main %}
+<style>
+
+.table_footable{
+    width: 95%;
+    text-align: end;
+}
+
+.form-group{
+    display: -webkit-inline-box;
+    margin: 100px;
+}
+
+.panel-primary {
+    border-color: #337ab7;
+    width: 60%;
+}
+
+
+.panel-body{
+    text-align: -webkit-center;
+}
+
+tbody, th, #_body{
+    text-align: -webkit-center;
+}
+
+
+#name, #_submit{
+    margin: 5px;
+}
+
+</style>
+
+      <br>
+      <br>
+      <br>
+      <br>
+     <div class="panel panel-primary" style="background-image: url('/static/images/seism.jpg'); min-height: 489px;">
+        <div class="panel-body">
+
+            {% block department_form %}{% endblock %}
+
+        </div>
+     </div>
+
+
+
+{% endblock %}

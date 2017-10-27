@@ -1,0 +1,66 @@
+{% extends "admin/seismic/list.html" %}
+{% block department_form %}
+
+<style>
+#name, #_submit{
+    margin: 5px;
+}
+</style>
+
+   <div id="form_" style="text-align: center;">
+       <form action="" method="post" name="login">
+           {{ form.csrf_token }}
+           <div style="display: -webkit-inline-box;">
+               {{ form.seismic_time(type='time', step="2") }}
+               {{ form.seismic_date(type='date', step="2") }}
+               {{ form.richter_scale }}
+               {{ form.city_id }}
+               {{ form.department }}
+               <p><input id="_submit" type="submit" value="Guardar" class="btn btn-danger btn-block"></p>
+           </div>
+       </form>
+   </div>
+
+
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.nicescroll.js') }}"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#department').append($('<option>', {
+        value: 'default',
+        text: ''
+    }));
+
+$('#department option[value=default]').attr('selected','selected');
+$('#richter_scale option[value=default]').attr('selected','selected');
+$('#seismic_date').val('');
+
+    $( "#department" ).change(function() {
+		$.ajax({
+			url: '{{ url_for('get_departments') }}',
+			data:{
+                 'department': $('#department').val(),
+                 'csrfmiddlewaretoken': '{{ csrf_token }}'
+                 },
+			type: 'POST',
+			success: function(response){
+                    $('#city_id').children().remove();
+                        for( id  in response.city_id){
+                            $('#city_id').append($('<option>', {
+                                value: response.city_id[id],
+                                text: response.city_name[id]
+                            }));
+                        }
+					},
+			error: function(error){
+                alert('ala mierda');
+			}
+		});
+    });
+
+});
+
+</script>
+
+{% endblock %}

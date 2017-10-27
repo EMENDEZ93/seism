@@ -66,6 +66,7 @@ tbody, th, #_body{
                                         <button type=submit class="btn btn-info btn-block" >Eliminar</button>
                                     </form>
                                     <a href="{{ url_for('new_department',name_country=country.name) }}" class="btn btn-default btn-block">Departamentos</a>
+                                    <a href="{{ url_for('new_seismic',name_country=country.name) }}" class="btn btn-default btn-block">Añadir sismo</a>
                                 </td>
                             </tr>
                         {% endfor %}
