@@ -1237,16 +1237,16 @@ def colombia_cities_data():
     sheet = doc.active
     for z,date,city,time,seism in sheet['A3':'E940']:
         cityFound = City.query.filter_by(name=city.value,).first()
-        if cityFound:
-            seismFound = Seism.query.filter_by(city_id=cityFound.id, seismic_date=date.value, seismic_time=str(time.value), richter_scale=seism.value).first()
-            if not seismFound:
-                print(cityFound)
-                datetime_ = date.value
-                time_ = time.value
-                date_ = float(seism.value)
-                seism = Seism(time_, datetime_, date_, cityFound.id)
-                db.session.add(seism)
-                db.session.commit()
+        #if cityFound:
+        #    seismFound = Seism.query.filter_by(city_id=cityFound.id, seismic_date=date.value, seismic_time=str(time.value), richter_scale=seism.value).first()
+        #    if not seismFound:
+        #        print(cityFound)
+        #        datetime_ = date.value
+        #        time_ = time.value
+        #        date_ = float(seism.value)
+        #        seism = Seism(time_, datetime_, date_, cityFound.id)
+        #        db.session.add(seism)
+        #        db.session.commit()
 
     return 'ok'
 
