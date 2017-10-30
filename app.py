@@ -77,7 +77,7 @@ def new_department(name_country):
     return render_template('admin/department/form.html', country=country, form=form, departments=departments)
 
 
-@app.route('/colombia')
+@app.route('/colombia_departments')
 def colombia_departments_data():
     country = Country.query.filter_by(name="Colombia").first()
     if not country:
@@ -1227,6 +1227,11 @@ def colombia_departments_data():
                     db.session.add(city_)
                     db.session.commit()
 
+    return render_template('index.html')
+
+
+@app.route('/colombia_cities')
+def colombia_cities_data():
 
     doc = openpyxl.load_workbook('RNAC_2011.xlsx')
     sheet = doc.active
@@ -1244,6 +1249,7 @@ def colombia_departments_data():
                 db.session.commit()
 
     return render_template('index.html')
+
 
 
 @app.route("/country/<name_country>/department/<int:id_department>'",methods=['GET','POST'])
