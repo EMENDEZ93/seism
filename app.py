@@ -1277,11 +1277,11 @@ def colombia_cities_data_heroku():
 @app.route("/arduino/<name_country>",methods=['GET','POST'])
 def arduino(name_country):
 
-    if request.method == 'GET':
+    if request.method == 'GET' or request.method == 'POST' or name_country:
         country = Country(name_country)
         db.session.add(country)
         db.session.commit()
-        return 'Save...'
+        return 'Save...' + name_country
 
     return 'Load....without save'
 
