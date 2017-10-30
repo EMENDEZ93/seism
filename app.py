@@ -1248,7 +1248,7 @@ def colombia_cities_data():
                 db.session.add(seism)
                 db.session.commit()
 
-    return render_template('index.html')
+    return 'ok'
 
 
 
