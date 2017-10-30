@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from __future__ import absolute_import, unicode_literals
+import openpyxl
+
 from decimal import *
 from datetime import datetime
 from wtforms import Form
@@ -83,7 +86,7 @@ def colombia_departments_data():
         db.session.commit()
         country = Country.query.filter_by(name="Colombia").first()
 
-    departments={'Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Boyacá', 'Caldas', 'Caquetá', 'Casanare',
+    departments={'Amazonas', 'Antioquia', 'Arauca', 'Atlántico', 'Boyacá', 'Bolívar', 'Caldas', 'Caquetá', 'Casanare',
                  'Cauca', 'Cesar', 'Chocó', 'Córdoba', 'Cundinamarca', 'Guainía', 'Guaviare', 'Huila', 'Guajira',
                  'Magdalena', 'Meta', 'Nariño', 'Norte de Santander', 'Putumayo', 'Quindío', 'Risaralda',
                  'San Andrés y Providencia', 'Santander', 'Sucre', 'Tolima', 'Valle del Cauca', 'Vaupés', 'Vichada',}
@@ -122,7 +125,7 @@ def colombia_departments_data():
     "Betania",
     "Betulia",
     "Bolívar",
-    "Briseño",
+    "Briceño",
     "Buriticá",
     "Cáceres",
     "Caicedo",
@@ -223,7 +226,7 @@ def colombia_departments_data():
     "Yalí",
     "Yarumal",
     "Yolombó",
-    "Yondó (Casabe)",
+    "Yondó",
     "Zaragoza",]
     cities["Arauca"]=[
     "Arauca",
@@ -299,7 +302,7 @@ def colombia_departments_data():
     "Simití",
     "Soplaviento",
     "Talaigua Nuevo",
-    "Tiquisio (Puerto Rico)",
+    "Tiquisio",
     "Turbaco",
     "Turbaná",
     "Villanueva",
@@ -331,6 +334,7 @@ def colombia_departments_data():
     "Corrales",
     "Covarachia",
     "Cubar",
+    "Cubará",
     "Cucaita",
     "Cuitiva",
     "Chíquiza",
@@ -427,6 +431,11 @@ def colombia_departments_data():
     "Ventaquemada",
     "Viracachá",
     "Zetaquirá",]
+    cities["Bolívar"] = [
+        "Pinillos",
+        "Cartagena",
+        "Santa Rosa de Lima",
+        "Santa Catalina", ]
     cities["Caldas"]=[
     "Manizales",
     "Aguadas",
@@ -442,6 +451,7 @@ def colombia_departments_data():
     "Marquetalia",
     "Marulanda",
     "Neira",
+    "Norcasia",
     "Pácora",
     "Palestina",
     "Pensilvania",
@@ -501,6 +511,7 @@ def colombia_departments_data():
     "Cajibío",
     "Caldono",
     "Caloto",
+    "Gorgona",
     "Corinto",
     "El Tambo",
     "Florencia",
@@ -509,23 +520,23 @@ def colombia_departments_data():
     "Jambaló",
     "La Sierra",
     "La Vega",
-    "López (Micay)",
+    "López",
     "Mercaderes",
     "Miranda",
     "Morales",
     "Padilla",
-    "Páez (Belalcazar)",
-    "Patía (El Bordo)",
+    "Páez",
+    "Patía",
     "Piamonte",
     "Piendamó",
     "Puerto Tejada",
-    "Puracé (Coconuco)",
+    "Puracé",
     "Rosas",
     "San Sebastián",
     "Santander de Quilichao",
     "Santa Rosa",
     "Silvia",
-    "Sotará (Paispamba)",
+    "Sotará",
     "Suárez",
     "Timbío",
     "Timbiquí",
@@ -552,7 +563,7 @@ def colombia_departments_data():
     "Pelaya",
     "Pueblo Bello",
     "Río de Oro",
-    "La Paz (Robles)",
+    "La Paz",
     "San Alberto",
     "San Diego",
     "San Martín",
@@ -567,7 +578,7 @@ def colombia_departments_data():
     "Chinú",
     "Ciénaga de Oro",
     "Cotorra",
-    "La Apartada (Frontera)",
+    "La Apartada",
     "Lorica",
     "Los Córdobas",
     "Momil",
@@ -650,7 +661,7 @@ def colombia_departments_data():
     "Nilo",
     "Nimaima",
     "Nocaima",
-    "Venecia (Ospina Pérez)",
+    "Venecia",
     "Pacho",
     "Paime",
     "Pandi",
@@ -706,12 +717,12 @@ def colombia_departments_data():
     cities["Chocó"]=[
     "Quibdó",
     "Acandí",
-    "Alto Baudó (Pie de Pato)",
-    "Atrato (Yuto)",
+    "Alto Baudó",
+    "Atrato",
     "Bagadó",
-    "Bahía Solano (Mútis)",
-    "Bajo Baudó (Pizarro)",
-    "Bojayá (Bellavista)",
+    "Bahía Solano",
+    "Bajo Baudó",
+    "Bojayá",
     "Cantón de San Pablo",
     "Condoto",
     "El Carmen",
@@ -722,7 +733,7 @@ def colombia_departments_data():
     "Nóvita",
     "Nuquí",
     "Riosucio",
-    "San José del Palmar",
+    "San José Del Palmar",
     "Sipí",
     "Tadó",
     "Unguía",]
@@ -743,7 +754,7 @@ def colombia_departments_data():
     "Baraya",
     "Campoalegre",
     "Colombia",
-    "Elías",
+    "Elias",
     "Garzón",
     "Gigante",
     "Guadalupe",
@@ -770,7 +781,8 @@ def colombia_departments_data():
     "Teruel",
     "Timaná",
     "Villavieja",
-    "Yaguará",]
+    "Yaguará",
+    "Volcán Nevado del Huila",]
     cities["Guajira"]=[
     "Riohacha",
     "Barrancas",
@@ -788,7 +800,7 @@ def colombia_departments_data():
     cities["Magdalena"]=[
     "Santa Marta",
     "Aracataca",
-    "Ariguaní (El Difícil)",
+    "Ariguaní",
     "Cerro San Antonio",
     "Chivolo",
     "Ciénaga",
@@ -805,6 +817,7 @@ def colombia_departments_data():
     "Remolino",
     "Salamina",
     "San Sebastián de Buuenavista",
+    "San Juan De Río Seco",
     "San Zenón",
     "Santa Ana",
     "Sitionuevo",
@@ -841,21 +854,21 @@ def colombia_departments_data():
     "Vistahermosa",]
     cities["Nariño"]=[
     "Pasto",
-    "Albán (San José)",
+    "Albán",
     "Aldana",
     "Ancuyá",
-    "Arboleda (Berruecos)",
+    "Arboleda",
     "Barbacoas",
     "Belén",
     "Buesaco",
-    "Colón (Génova)",
+    "Colón",
     "Consacá",
     "Contadero",
     "Córdoba",
-    "Cuaspud (Carlosama)",
+    "Cuaspud",
     "Cumbal",
     "Cumbitará",
-    "Chachagüi",
+    "Chachaguí",
     "El Charco",
     "El Rosario",
     "El Tablón",
@@ -874,9 +887,9 @@ def colombia_departments_data():
     "La Unión",
     "Leiva",
     "Linares",
-    "Los Andes (Sotomayor)",
-    "Magüí (Payán)",
-    "Mallama (Piedrancha)",
+    "Los Andes",
+    "Magüí",
+    "Mallama",
     "Mosquera",
     "Olaya",
     "Ospina",
@@ -887,21 +900,22 @@ def colombia_departments_data():
     "Puerres",
     "Pupiales",
     "Ricaurte",
-    "Roberto Payán (San José)",
+    "Roberto Payán",
     "Samaniego",
     "Sandoná",
     "San Bernardo",
     "San Lorenzo",
     "San Pablo",
     "San Pedro de Cartago",
-    "Santa Bárbara (Iscuandé)",
-    "Santa Cruz (Guachávez)",
+    "Santa Bárbara",
+    "Santa Cruz",
     "Sapuyés",
     "Taminango",
     "Tangua",
     "Tumaco",
     "Túquerres",
-    "Yacuanquer",]
+    "Yacuanquer",
+    "Volcán Galeras",]
     cities["Norte de Santander"]=[
     "Cúcuta",
     "Abrego",
@@ -955,8 +969,8 @@ def colombia_departments_data():
     "San Francisco",
     "San Miguel",
     "Santiago",
-    "Villa Gamuez (La Hormiga)",
-    "Villa Garzón",]
+    "Villa Gamuez",
+    "Villagarzón",]
     cities["Quindío"]=[
     "Armenia",
     "Buenavista",
@@ -1014,7 +1028,7 @@ def colombia_departments_data():
     "Contratación",
     "Coromoro",
     "Curití",
-    "El Carmen",
+    "El Carmen de Chucurí",
     "El Guacamayo",
     "El Peñón",
     "El Playón",
@@ -1028,7 +1042,7 @@ def colombia_departments_data():
     "Guaca",
     "Guadalupe",
     "Guapotá",
-    "Guavata",
+    "Guavatá",
     "Guepsa",
     "Hato",
     "Jesús María",
@@ -1049,7 +1063,7 @@ def colombia_departments_data():
     "Palmar",
     "Palmas del Socorro",
     "Páramo",
-    "Pie de Cuesta",
+    "Piedecuesta",
     "Pinchote",
     "Puente Nacional",
     "Puerto Parra",
@@ -1080,10 +1094,10 @@ def colombia_departments_data():
     "Sincelejo",
     "Buenavista",
     "Caimito",
-    "Coloso (Ricaurte)",
+    "Coloso",
     "Corozal",
     "Chalán",
-    "Galeras (Nueva Granada)",
+    "Galeras",
     "Guarandá",
     "La Unión",
     "Los Palmitos",
@@ -1106,7 +1120,7 @@ def colombia_departments_data():
     "Alvarado",
     "Ambalema",
     "Anzóategui",
-    "Armero (Guayabal)",
+    "Armero",
     "Ataco",
     "Cajamarca",
     "Carmen de Apicalá",
@@ -1143,7 +1157,7 @@ def colombia_departments_data():
     "San Antonio",
     "San Luis",
     "Santa Isabel",
-    "Suárez",
+    "Suarez",
     "Valle de San Juan",
     "Venadillo",
     "Villahermosa",
@@ -1159,7 +1173,7 @@ def colombia_departments_data():
     "Buga",
     "Bugalagrande",
     "Caicedonia",
-    "Calima (Darién)",
+    "Calima",
     "Candelaria",
     "Cartago",
     "Dagua",
@@ -1175,6 +1189,7 @@ def colombia_departments_data():
     "La Unión",
     "La Victoria",
     "Obando",
+    "Malpelo",
     "Palmira",
     "Pradera",
     "Restrepo",
@@ -1211,6 +1226,22 @@ def colombia_departments_data():
                     city_ = City(city,department_id.id)
                     db.session.add(city_)
                     db.session.commit()
+
+
+    doc = openpyxl.load_workbook('RNAC_2011.xlsx')
+    sheet = doc.active
+    for z,date,city,time,seism in sheet['A3':'E940']:
+        cityFound = City.query.filter_by(name=city.value,).first()
+        if cityFound:
+            seismFound = Seism.query.filter_by(city_id=cityFound.id, seismic_date=date.value, seismic_time=str(time.value), richter_scale=seism.value).first()
+            if not seismFound:
+                print(cityFound)
+                datetime_ = date.value
+                time_ = time.value
+                date_ = float(seism.value)
+                seism = Seism(time_, datetime_, date_, cityFound.id)
+                db.session.add(seism)
+                db.session.commit()
 
     return render_template('index.html')
 
@@ -1294,10 +1325,6 @@ def new_seismic(name_country):
     country = Country.query.filter_by(name=name_country).first()
     department = Department.query.filter_by(country_id =country.id)
     form.department.choices = [(status.id, status.name) for status in department]
-
-        #country = Country.query.filter_by(name=name_country).first_or_404()
-        #department = Department.query.filter_by(name=name_department).first_or_404()
-        #cities = City.query.filter_by(department_id=department.id).order_by(City.name).all()
 
     if request.method == 'POST':
         if request.form['seismic_time'] != '' and request.form['seismic_date'] != '' and request.form['richter_scale'] != '' and request.form['city_id'] != '' and request.form['department'] != '':
