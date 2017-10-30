@@ -1235,7 +1235,7 @@ def colombia_cities_data():
 
     doc = openpyxl.load_workbook('RNAC_2011.xlsx')
     sheet = doc.active
-    for z,date,city,time,seism in sheet['A3':'E940']:
+    for z,date,city,time,seism in sheet['A3':'E20']:
         cityFound = City.query.filter_by(name=city.value,).first()
         if cityFound:
             seismFound = Seism.query.filter_by(city_id=cityFound.id, seismic_date=date.value, seismic_time=str(time.value), richter_scale=seism.value).first()
