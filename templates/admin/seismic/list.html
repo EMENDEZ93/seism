@@ -37,7 +37,7 @@ tbody, th, #_body{
       <br>
       <br>
       <br>
-     <div class="panel panel-primary" style="background-image: url('/static/images/seism.jpg'); min-height: 489px;">
+     <div class="panel panel-primary" style="background-image: url('/static/images/seism.jpg'); min-height: 489px; max-width: 1017px">
         <div class="panel-body">
             
         <div style="text-align:center;">
@@ -55,7 +55,6 @@ tbody, th, #_body{
 
             {% if action == 'list'%}
             <div id="country_table"  {% if seismic|length == 0 %} style="display: none;"{% endif %}>
-            <h1>{{ country.name }} {{action}}</h1>
               <table class="table_footable">
                     <thead style="background-color: powderblue">
                         <tr style="text-align: -webkit-center;">

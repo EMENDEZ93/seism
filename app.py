@@ -1231,7 +1231,7 @@ def colombia_departments_data():
     return render_template('index.html')
 
 
-@app.route('/colombia_cities_local')
+@app.route('/colombia_load_data')
 def colombia_cities_data():
 
     doc = openpyxl.load_workbook('RNAC_2011.xlsx')
@@ -1249,30 +1249,9 @@ def colombia_cities_data():
                 db.session.add(seism)
                 db.session.commit()
 
-    return render_template('index.html')
+    return redirect(url_for('new_country'))
 
 
-@app.route('/colombia_cities_heroku')
-def colombia_cities_data_heroku():
-
-    date   = ["01/01/11","02/01/11","04/01/11","05/01/11","06/01/11","08/01/11","09/01/11","10/01/11","12/01/11","13/01/11","16/01/11","20/01/11","21/01/11","22/01/11","27/01/11","28/01/11","29/01/11","01/02/11","02/02/11","03/02/11","07/02/11","09/02/11","10/02/11","13/02/11","15/02/11","17/02/11","19/02/11","20/02/11","21/02/11","22/02/11","23/02/11","24/02/11","25/02/11","27/02/11","28/02/11","01/03/11","02/03/11","03/03/11","05/03/11","09/03/11","11/03/11","12/03/11","13/03/11","14/03/11","15/03/11","16/03/11","17/03/11","18/03/11","19/03/11","20/03/11","22/03/11","23/03/11","24/03/11","25/03/11","26/03/11","28/03/11","29/03/11","30/03/11","31/03/11","01/04/11","02/04/11","03/04/11","04/04/11","05/04/11","06/04/11","07/04/11","08/04/11","11/04/11","12/04/11","13/04/11","15/04/11","16/04/11","17/04/11","18/04/11","20/04/11","21/04/11","22/04/11","24/04/11","26/04/11","27/04/11","28/04/11","29/04/11","30/04/11","01/05/11",]
-    cities = ["Ambalema","Cucunubá","Tumaco","Los Santos","San Cayetano","Francisco Pizarro","Francisco Pizarro","Agustín Codazzi","Los Santos","Los Santos","Valledupar","Valledupar","Los Santos","Cajibío","Los Santos","Los Santos","Trujillo","Nuquí","San Marcos","Obando","Los Santos","Ricaurte","Roberto Payán","Murillo","El Carmen de Chucurí","Gorgona","Francisco Pizarro","Tumaco","San José Del Palmar","Los Santos","Cartagena","Los Santos","Zapatoca","Villanueva","San Pedro","El Calvario","Los Santos","El Águila","Caucasia","Calima","Sutamarchán","Los Santos","Villanueva","Los Santos","Orito","Zaragoza","Gorgona","Los Santos","Los Santos","Rivera","Los Santos","Jordán","Los Santos","Tumaco","Los Santos","Mosquera","Puerto Rico","Puerto Rico","Briceño","Ituango","Los Santos","Riosucio","San José Del Palmar","Buenaventura","El Tablón","Sipí","Los Santos","Villanueva","Los Santos","Los Santos","Tumaco","Los Santos","Cúcuta","Los Santos","Necoclí","Iles","Iles","El Charco","Los Santos","Los Santos","El Bagre","Los Santos","Bolivar","Tamalameque",]
-    time   = ["00:02:04","11:29:15","16:38:02","00:33:40","03:18:02","16:14:35","18:21:56","02:40:30","22:09:30","11:04:43","22:09:44","02:02:01","02:44:55","03:55:10","00:55:10","01:06:03","07:09:15","11:42:19","15:34:29","07:00:37","01:10:51","01:20:47","21:24:57","08:38:40","09:50:18","12:53:42","02:33:43","12:46:20","07:51:01","03:29:04","19:58:13","20:27:39","04:18:59","12:32:54","13:12:31","14:06:47","23:39:04","00:05:17","03:09:41","07:13:41","10:23:48","11:23:25","03:35:33","10:25:38","11:35:09","11:23:40","11:50:29","00:02:55","19:21:50","10:02:51","06:15:36","19:13:48","09:58:51","12:51:39","15:56:43","00:45:18","06:51:45","06:57:38","09:22:07","10:07:46","10:18:21","09:00:49","04:01:25","06:43:28","03:11:39","11:31:25","17:01:56","05:31:47","15:10:39","03:23:53","19:38:34","08:27:31","13:55:45","02:41:08","18:50:49","07:43:01","07:57:46","06:38:00","08:27:15","17:35:17","03:56:35","20:13:24","08:48:46","09:23:19",]
-    grade  = ["3.1","3.2","2.9","3.5","1.8","3.3","2.7","2.5","3.1","4.5","2.8","2.3","3.3","2.8","3.2","3.5","3.9","3","2.4","3.1","4","2.3","2.2","3","4","4.3","2.1","1.6","3.4","3.4","3.6","3.8","4.1","3.4","3.4","4","4.1","4.3","2.4","4.6","3.8","3.4","3.2","3.4","3.6","2.4","2.9","3.5","3.4","4.1","3.2","3.3","3.8","2.8","2.9","2.2","3.1","3.5","2.8","3.2","4.1","3.4","2.9","2.6","2.5","4.4","4.0","3.1","3.5","3.6","3.1","3.5","3.6","3.5","5.2","2.1","2","2.4","3.1","3.5","2","3.6","2.9","3.9",]
-
-    for index in range(0,len(date)):
-        cityFound = City.query.filter_by(name=cities[index]).first()
-        if cityFound:
-            seismFound = Seism.query.filter_by(city_id=cityFound.id, seismic_date=date[index], seismic_time=time[index], richter_scale=float( grade[index] ) ).first()
-            if not seismFound:
-                datetime_ = date[index]
-                time_ = time[index]
-                date_ = float(grade[index])
-                seism = Seism(time_, datetime_, date_, cityFound.id)
-                db.session.add(seism)
-                db.session.commit()
-
-    return render_template('index.html')
 
 
 @app.route("/arduino/<name_country>",methods=['GET','POST'])
@@ -1412,8 +1391,6 @@ def statistics(name_country):
 def seismic_list(name_city):
     city = City.query.filter_by(name=name_city).first_or_404()
     return render_template('admin/city/seism/list.html', city=city)
-
-
 
 
 #ajax
