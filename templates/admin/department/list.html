@@ -40,13 +40,22 @@ tbody, th, #_body{
      <div class="panel panel-primary" style="background-image: url('/static/images/seism.jpg'); min-height: 489px;">
         <div class="panel-body">
 
+        <div style="text-align:center;">
+          <a href="{{ url_for('new_country') }}" style="float: left;font-size: 20px;margin-left: 20px;">
+            < volver
+          </a>
+          <h2 class="page-header mtn">
+            {{ country.name }}
+          </h2>
+        </div>
+
+
             {% block department_form %}{% endblock %}
             <div id="country_table"  {% if country == 0 %} style="display: none;"{% endif %}>
-            <h1>{{ country.name }}</h1>
                 <table class="table_footable" {% if departments|length  == 0 %} style="display: none;"{% endif %} >
                     <thead style="background-color: powderblue">
                         <tr style="text-align: -webkit-center;">
-                            <th>Id</th>
+                            <th>N°</th>
                             <th>Departamentos</th>
                             <th>Acciones</th>
                         </tr>
@@ -55,17 +64,17 @@ tbody, th, #_body{
                         {% for department in departments %}
                             <tr>
                                 <td>
-                                    {{department.id}}
+                                    {{loop.index}}
                                 </td>
                                 <td>
                                     {{department.name}}
                                 </td>
                                 <td style="display:flex;">
+                                    <a href="{{ url_for('new_city', name_country=country.name, name_department=department.name) }}" class="btn btn-default btn-block">Ciudades</a>
                                     <a href="{{ url_for('edit_department',name_country=country.name,id_department=department.id) }}" class="btn btn-default btn-block">Editar</a>
                                     <form action="{{ url_for('delete_department',id_department=department.id) }}" method="post" style="width: 100%;">
                                         <button type=submit class="btn btn-info btn-block" >Eliminar</button>
                                     </form>
-                                    <a href="{{ url_for('new_city', name_country=country.name, name_department=department.name) }}" class="btn btn-default btn-block">Ciudades</a>
                                 </td>
                             </tr>
                         {% endfor %}

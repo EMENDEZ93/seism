@@ -51,6 +51,7 @@ def edit_country(id_country):
     return render_template('admin/country/form.html',form=form)
 
 
+
 @app.route('/country/<int:id_country>',methods=['GET','POST','DELETE'])
 def delete_country(id_country):
     if request.method == 'POST' or request.method == 'DELETE':
@@ -1362,10 +1363,12 @@ def delete_city(id_city):
 
 @app.route('/seismic/<name_country>',methods=['GET', 'POST'])
 def new_seismic(name_country):
+    action = 'create'
     form = SeismicForm(request.form)
     country = Country.query.filter_by(name=name_country).first()
     department = Department.query.filter_by(country_id =country.id)
     form.department.choices = [(status.id, status.name) for status in department]
+    seismic = Seism.query.all()
 
     if request.method == 'POST':
         if request.form['seismic_time'] != '' and request.form['seismic_date'] != '' and request.form['richter_scale'] != '' and request.form['city_id'] != '' and request.form['department'] != '':
@@ -1378,8 +1381,42 @@ def new_seismic(name_country):
                 db.session.add(seism)
                 db.session.commit()
 
-    return render_template('admin/seismic/form.html', form=form)
+    return render_template('admin/seismic/form.html', form=form, action=action, seismic=seismic, country=country)
 
+
+@app.route('/seismic/report/<name_country>',methods=['GET', 'POST'])
+def seismic_report(name_country):
+    action = 'list'
+    form = SeismicForm(request.form)
+    country = Country.query.filter_by(name=name_country).first()
+    departments = Department.query.filter_by(country_id =country.id).all()
+
+    cities = []
+    for department in departments:
+        cities.extend(City.query.filter_by(department_id=department.id).all())
+
+    seismic = []
+    for city in cities:
+        seismic.extend(Seism.query.filter_by(city_id=city.id).all())
+
+
+    return render_template('admin/seismic/form.html', form=form, action=action, seismic=seismic, country=country)
+
+
+@app.route('/seismic/statistics/<name_country>',methods=['GET', 'POST'])
+def statistics(name_country):
+    country = Country.query.filter_by(name=name_country).first()
+    return render_template('admin/statistics/list.html', country=country)
+
+@app.route('/seismic/report/city/<name_city>',methods=['GET', 'POST'])
+def seismic_list(name_city):
+    city = City.query.filter_by(name=name_city).first_or_404()
+    return render_template('admin/city/seism/list.html', city=city)
+
+
+
+
+#ajax
 @app.route('/get_departments', methods=['POST'])
 def get_departments():
     user =  request.form['department']

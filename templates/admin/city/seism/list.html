@@ -39,23 +39,8 @@ tbody, th, #_body{
       <br>
      <div class="panel panel-primary" style="background-image: url('/static/images/seism.jpg'); min-height: 489px;">
         <div class="panel-body">
-            
-        <div style="text-align:center;">
-          <a href="{{ url_for('new_country') }}" style="float: left;font-size: 20px;margin-left: 20px;">
-            < volver
-          </a>
-          <h2 class="page-header mtn">
-            {{ country.name }}
-          </h2>
-        </div>
-
-           {% if action == 'create' %}
-               {% block department_form %}{% endblock %}
-           {% endif %}
-
-            {% if action == 'list'%}
-            <div id="country_table"  {% if seismic|length == 0 %} style="display: none;"{% endif %}>
-            <h1>{{ country.name }} {{action}}</h1>
+            <h1>{{ city.name }}</h1>
+            <div id="country_table"  {% if city.his_seism()|length == 0 %} style="display: none;"{% endif %}>
               <table class="table_footable">
                     <thead style="background-color: powderblue">
                         <tr style="text-align: -webkit-center;">
@@ -63,28 +48,21 @@ tbody, th, #_body{
                             <th>Fecha</th>
                             <th>Hora</th>
                             <th>Sismo</th>
-                            <th>Ciudad</th>
-                            <th>Departamento</th>
-                        {% if action =='edit' %}
-                            <th>Acciones</th>
-                        {% endif %}
                         </tr>
                     </thead>
                     <tbody>
-                        {% for seism in seismic %}
+                        {% for seism in city.his_seism() %}
                             <tr>
                                 <td>{{loop.index}}</td>
                                 <td>{{seism.seismic_date|replace("00:00:00", '', 2)}}</td>
                                 <td>{{seism.seismic_time}}</td>
                                 <td>{{seism.richter_scale}}</td>
-                                <td>{{seism.get_city()}}</td>
-                                <td>{{seism.get_department() }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
               </table>
             </div>
-            {% endif %}
+
         </div>
      </div>
 

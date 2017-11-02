@@ -44,7 +44,7 @@
 	<![endif]-->
 </head>
 
-<body>
+<body style="text-align: -webkit-center;">
                 <!-- Preloader -->
                 <div id="preloader">
                     <div id="status">&nbsp;</div>
@@ -69,12 +69,7 @@
 	                <!-- Collect the nav links, forms, and other content for toggling -->
 	                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	                  <ul class="nav navbar-nav navbar-right">
-	                    <li><a href="#HOME">Home</a></li>
-	                    <li><a href="#SERVICE">Services</a></li>
-	                    <li><a href="#ABOUT">About</a></li>
-	                    <li><a href="#TESTIMONIAL">Testimonial</a></li>
-	                    <li><a href="#WORK">Work</a></li>
-	                    <li><a href="#CONTACT">Contact</a></li>
+	                    <li><a href="{{ url_for('new_country') }}">Inicio</a></li>
 	                  </ul>
 	                </div><!-- /.navbar-collapse -->
 	              </div><!-- /.container -->
@@ -91,22 +86,6 @@
                 <div class="col-md-12 text-center">
                     <div class="footer_logo   wow fadeInUp animated">
                         <img src="{{ url_for('static', filename='images/seism.png') }}" style="margin: -90px;margin-left: -106px;"  alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center   wow fadeInUp animated">
-                    <div class="social">
-                        <h2>Follow Me on Here</h2>
-                        <ul class="icon_list">
-                            <li><a href="http://www.facebook.com/abdullah.noman99"target="_blank"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="http://www.twitter.com/absconderm"target="_blank"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="http://www.dribbble.com/abdullahnoman"target="_blank"><i class="fa fa-dribbble"></i></a></li>
-                        </ul>
                     </div>
                 </div>
             </div>

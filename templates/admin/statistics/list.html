@@ -1,0 +1,65 @@
+{% extends "admin/admin.html" %}
+{% block main %}
+<style>
+
+.table_footable{
+    width: 95%;
+    text-align: end;
+}
+
+.form-group{
+    display: -webkit-inline-box;
+    margin: 100px;
+}
+
+.panel-primary {
+    border-color: #337ab7;
+    width: 60%;
+}
+
+
+.panel-body{
+    text-align: -webkit-center;
+}
+
+tbody, th, #_body{
+    text-align: -webkit-center;
+}
+
+
+#name, #_submit{
+    margin: 5px;
+}
+
+</style>
+
+      <br>
+      <br>
+      <br>
+      <br>
+     <div class="panel panel-primary" style="min-height: 489px;">
+        <div class="panel-body">
+
+
+        <div style="text-align:center;">
+          <a href="{{ url_for('new_country') }}" style="float: left;font-size: 20px;margin-left: 20px;">
+            < volver
+          </a>
+          <h2 class="page-header mtn">
+            {{ country.name }}
+          </h2>
+        </div>
+
+            <table cellpadding="0"  cellspacing="0" border="0" >
+                {% for department in country.get_all_departments() %}
+                <tr><td align="" ign=RIGHT bgcolor="#FFFFFF"><font size="" ze="-1" color=#000000" style="text-align: -webkit-right;">{{ department.name }}</font></td><td align=LEFT bgcolor="#FFFFFF"> </font></td><td align=LEFT bgcolor="#FFFFFF"><img  style="background-color: black;" height=10 width="{{ department.seism_for_department()}} "><i><font size="-2" color="#000000"  style=""><a>( {{ department.seism_for_department()}} )</a></font></i></td></tr>
+                {% endfor %}
+            </table>
+        </div>
+     </div>
+
+
+
+
+
+{% endblock %}

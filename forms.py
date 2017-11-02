@@ -9,21 +9,21 @@ from models import Country, City
 
 
 class CountryForm(Form):
-    name = StringField('Name', [validators.Length(min=4, max=25)])
+    name = StringField('Pais', [validators.Length(min=4, max=25)])
 
 
 class DepartmentForm(Form):
-    name = StringField('Name', [validators.Length(min=4, max=25)])
+    name = StringField('Departamento', [validators.Length(min=4, max=25)])
 
 
 class CityForm(Form):
-    name = StringField('Name', [validators.Length(min=4, max=25)])
+    name = StringField('Ciudad', [validators.Length(min=4, max=25)])
 
 
 class SeismicForm(Form):
-    seismic_date = StringField('Seismic Date')
-    seismic_time = DateTimeField('Seismic Time')
-    richter_scale = SelectField('Richter scale', choices=[
+    seismic_date = StringField('Fecha del sismo')
+    seismic_time = DateTimeField('Hora del sismo')
+    richter_scale = SelectField('Escala de Richter', choices=[
         ('default', ''),
 
         (   1,   1),
@@ -128,6 +128,6 @@ class SeismicForm(Form):
         (10, 10),
 
     ])
-    city_id = SelectField("Seism city",choices=[])
-    department = SelectField("Seism city",choices=[])
+    city_id = SelectField("Ciudad",choices=[])
+    department = SelectField("Departamento",choices=[])
 

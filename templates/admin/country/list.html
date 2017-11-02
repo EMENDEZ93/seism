@@ -46,7 +46,7 @@ tbody, th, #_body{
               <table class="table_footable">
                     <thead style="background-color: powderblue">
                         <tr style="text-align: -webkit-center;">
-                            <th>Id</th>
+                            <th>N°</th>
                             <th>Pais</th>
                             <th>Acciones</th>
                         </tr>
@@ -55,18 +55,20 @@ tbody, th, #_body{
                         {% for country in countries %}
                             <tr>
                                 <td>
-                                    {{country.id}}
+                                    {{loop.index}}
                                 </td>
                                 <td>
                                     {{country.name}}
                                 </td>
                                 <td style="display:flex;">
-                                    <a id=""  href="{{ url_for('edit_country',id_country=country.id) }}" class="btn btn-default btn-block">Editar</a>
+                                    <a href="{{ url_for('new_seismic',name_country=country.name) }}" class="btn btn-default">añadir sismo</a>
+                                    <a href="{{ url_for('new_department',name_country=country.name) }}" class="btn btn-default">Departamentos</a>
+                                    <a href="{{ url_for('seismic_report',name_country=country.name) }}" class="btn btn-default">Reporte</a>
+                                    <a href="{{ url_for('statistics',name_country=country.name) }}" class="btn btn-default">Estadistica sismica</a>
+                                    <a id=""  href="{{ url_for('edit_country',id_country=country.id) }}" class="btn btn-default">Editar</a>
                                     <form action="{{ url_for('delete_country',id_country=country.id) }}" method="post" style="width: 100%;">
                                         <button type=submit class="btn btn-info btn-block" >Eliminar</button>
                                     </form>
-                                    <a href="{{ url_for('new_department',name_country=country.name) }}" class="btn btn-default btn-block">Departamentos</a>
-                                    <a href="{{ url_for('new_seismic',name_country=country.name) }}" class="btn btn-default btn-block">Añadir sismo</a>
                                 </td>
                             </tr>
                         {% endfor %}

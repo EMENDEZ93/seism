@@ -15,6 +15,11 @@ class Country(db.Model):
     def __repr__(self):
         return '<id {}>'.format(self.id)
 
+    def get_all_departments(self):
+        department = Department.query.filter_by(country_id=self.id).order_by(Department.name).all()
+        return department
+
+
 class Department(db.Model):
     __tablename__ = 'department'
 
@@ -28,6 +33,14 @@ class Department(db.Model):
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+    def seism_for_department(self):
+        n_seism = 0
+        for city in City.query.filter_by(department_id =self.id).all():
+            n_seism = n_seism + Seism.query.filter_by(city_id =city.id).count()
+
+        return n_seism
+
 
 
 class City(db.Model):
@@ -44,6 +57,9 @@ class City(db.Model):
     def __repr__(self):
         return '<id {}>'.format(self.id)
 
+    def his_seism(self):
+        seism = Seism.query.filter_by(city_id=self.id).all()
+        return seism
 
 class Seism(db.Model):
     __tablename__ = 'seism'
@@ -62,3 +78,13 @@ class Seism(db.Model):
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
+
+    def get_city(self):
+        city = City.query.filter_by(id=self.city_id).first()
+        return city.name
+
+    def get_department(self):
+        city = City.query.filter_by(id=self.city_id).first()
+        department = Department.query.filter_by(id=city.department_id).first()
+        return department.name
+

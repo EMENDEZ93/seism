@@ -7,17 +7,40 @@
 }
 </style>
 
+
    <div id="form_" style="text-align: center;">
-       <form action="" method="post" name="login">
+       <form action="" method="post"  enctype="multipart/form-data">
            {{ form.csrf_token }}
-           <div style="display: -webkit-inline-box;">
-               {{ form.seismic_time(type='time', step="2") }}
-               {{ form.seismic_date(type='date', step="2") }}
-               {{ form.richter_scale }}
-               {{ form.city_id }}
-               {{ form.department }}
-               <p><input id="_submit" type="submit" value="Guardar" class="btn btn-danger btn-block"></p>
-           </div>
+           <br style="display: -webkit-inline-box;">
+               <center>
+
+               <div>
+                {{ form.seismic_time.label }}
+                {{ form.seismic_time(type='time', step="2") }}
+               </div>
+
+               <div>
+                {{ form.seismic_date.label }}
+                {{ form.seismic_date(type='date', step="2") }}
+               </div>
+
+               <div>
+                {{ form.richter_scale.label }}
+                {{ form.richter_scale}}
+               </div>
+
+               <div>
+                {{ form.department.label }}
+                {{ form.department }}
+               </div>
+
+               <div>
+                {{ form.city_id.label }}
+                {{ form.city_id }}
+               </div>
+
+               <input id="_submit" type="submit" value="Guardar" style="width: 200px;" class="btn btn-danger btn-block">
+               </center>
        </form>
    </div>
 
@@ -54,7 +77,6 @@ $('#seismic_date').val('');
                         }
 					},
 			error: function(error){
-                alert('ala mierda');
 			}
 		});
     });
