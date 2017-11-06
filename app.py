@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, unicode_literals
 import openpyxl
+from datetime import datetime
 
 from decimal import *
 from datetime import datetime
@@ -11,12 +12,13 @@ from flask import request
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
+
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-from models import Country, Department, City, Seism
+from models import Country, Department, City, Seism, Arduino
 from forms import CountryForm, DepartmentForm, CityForm, SeismicForm
 
 
@@ -1258,13 +1260,27 @@ def colombia_cities_data():
 def arduino(name_country):
 
     if request.method == 'GET' or request.method == 'POST' or name_country:
-        country = Country(name_country)
-        db.session.add(country)
+        alert = Arduino(str(datetime.now()))
+        db.session.add(alert)
         db.session.commit()
-        return 'Save...' + name_country
+        return 'Save...' + str(alert.alert_date)
 
     return 'Load....without save'
 
+
+@app.route("/alert",methods=['GET','POST'])
+def arduino_alert():
+    alerts = Arduino.query.all()
+    return render_template('admin/alert/list.html', alerts=alerts)
+
+
+@app.route("/alert/<int:id_alert>",methods=['GET','POST'])
+def delete_alert(id_alert):
+    alert = Arduino.query.filter_by(id=id_alert).first_or_404()
+    db.session.delete(alert)
+    db.session.commit()
+
+    return redirect(url_for('arduino_alert'))
 
 
 @app.route("/country/<name_country>/department/<int:id_department>'",methods=['GET','POST'])

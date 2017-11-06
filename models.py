@@ -88,3 +88,12 @@ class Seism(db.Model):
         department = Department.query.filter_by(id=city.department_id).first()
         return department.name
 
+
+class Arduino(db.Model):
+    __tablename__ = 'arduino'
+
+    id = db.Column(db.Integer, primary_key=True)
+    alert_date = db.Column(db.String())
+
+    def __init__(self, alert_date):
+        self.alert_date =alert_date

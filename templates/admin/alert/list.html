@@ -1,0 +1,74 @@
+{% extends "admin/admin.html" %}
+{% block main %}
+<style>
+
+.table_footable{
+    width: 95%;
+    text-align: end;
+}
+
+.form-group{
+    display: -webkit-inline-box;
+    margin: 100px;
+}
+
+.panel-primary {
+    border-color: #337ab7;
+    width: 60%;
+}
+
+
+.panel-body{
+    text-align: -webkit-center;
+}
+
+tbody, th, #_body{
+    text-align: -webkit-center;
+}
+
+
+#name, #_submit{
+    margin: 5px;
+}
+
+</style>
+
+      <br>
+      <br>
+      <br>
+      <br>
+     <div class="panel panel-primary" style="min-height: 489px; max-width: 1017px;">
+        <div class="panel-body">
+
+
+            <div id="country_table"  {% if alerts == 0 %} style="display: none;"{% endif %}>
+                <table class="table_footable" {% if alerts|length  == 0 %} style="display: none;"{% endif %} >
+                    <thead style="background-color: powderblue">
+                        <tr style="text-align: -webkit-center;">
+                            <th>N°</th>
+                            <th>Alerta</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alert in alerts %}
+                            <tr>
+                                <td>
+                                    {{loop.index}}
+                                </td>
+                                <td>
+                                    {{alert.alert_date}}
+                                </td>
+                                <td style="display:flex;">
+                                    <form action="{{ url_for('delete_alert',id_alert=alert.id) }}" method="post" style="width: 100%;">
+                                        <button type=submit class="btn btn-info btn-block" >Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+              </table>
+            </div>
+        </div>
+     </div>
+{% endblock %}
